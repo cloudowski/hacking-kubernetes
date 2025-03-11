@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend2
+  namespace: secret2
+spec:
+  selector:
+    matchLabels:
+      app: backend2
+  template:
+    metadata:
+      labels:
+        app: backend2
+    spec:
+      containers:
+        - image: nginx:1.27
+          name: nginx
+          volumeMounts:
+            - mountPath: /dbcreds/
+              name: dbcreds
+      volumes:
+        - name: dbcreds
+          secret:
+            secretName: dbcreds

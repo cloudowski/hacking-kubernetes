@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: user6
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/service-account-token
+metadata:
+  name: user6
+  annotations:
+    kubernetes.io/service-account.name: user6
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: user6
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: user6
+  # kind: ClusterRole
+  # name: view
+subjects:
+  - kind: ServiceAccount
+    name: user6

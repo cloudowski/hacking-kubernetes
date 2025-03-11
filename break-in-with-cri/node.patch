@@ -1,0 +1,4 @@
+spec:
+  template:
+    spec:
+      nodeName: aks-agentpool-18459780-vmss000000

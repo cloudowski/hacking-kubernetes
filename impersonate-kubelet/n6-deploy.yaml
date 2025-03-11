@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n6
+spec:
+  selector:
+    matchLabels:
+      app: n6
+  template:
+    metadata:
+      labels:
+        app: n6
+    spec:
+      containers:
+        - image: bitnami/nginx:1.27
+          command: ["tail", "-f", "/dev/null"]
+          name: nginx
+          volumeMounts:
+            - mountPath: /host/
+              name: host
+      volumes:
+        - name: host
+          hostPath:
+            path: /

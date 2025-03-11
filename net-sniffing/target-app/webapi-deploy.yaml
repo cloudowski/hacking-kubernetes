@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi
+spec:
+  selector:
+    matchLabels:
+      app: webapi
+  template:
+    metadata:
+      labels:
+        app: webapi
+    spec:
+      containers:
+        # - image: bitnami/nginx:1.27
+        - image: kong/httpbin
+          name: webapi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapi
+spec:
+  ports:
+    - port: 8000
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: webapi

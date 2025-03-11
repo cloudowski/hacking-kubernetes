@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n5
+spec:
+  selector:
+    matchLabels:
+      app: n5
+  template:
+    metadata:
+      labels:
+        app: n5
+    spec:
+      containers:
+        - image: nginx:1.27
+          name: nginx
+          securityContext:
+            privileged: true
+      hostNetwork: true

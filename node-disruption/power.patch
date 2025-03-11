@@ -1,0 +1,9 @@
+spec:
+  template:
+    spec:
+      hostNetwork: true
+      hostIPC: true
+      containers:
+      - name: nginx
+        securityContext:
+          privileged: true

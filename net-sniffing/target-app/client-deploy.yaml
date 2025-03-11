@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - image: nginx:1.27
+          name: backend
+          command:
+            - /bin/bash
+            - -c
+            - "while :;do curl -s -XPOST  http://admin:P4ssw0rd654321@webapi:8000/anything;sleep 2;done"

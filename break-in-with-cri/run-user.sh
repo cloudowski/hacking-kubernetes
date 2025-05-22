@@ -29,9 +29,9 @@ echo "ℹ️ Let's hack"
 kubectl exec deploy/n2 -ti -- sh -c "env CONTAINER_RUNTIME_ENDPOINT=$CONTAINER_RUNTIME_ENDPOINT PATH=/tmp:/bin:/usr/bin bash"
 
 echo -n "ℹ️ Provide the node name: "; read 
-sed -e "s/#NODE#/$REPLY/g" node-template.patch > node.patch
-pe "cat node.patch"
-pei "kubectl patch deployment n2 --patch-file=node.patch"
+sed -e "s/#NODE#/$REPLY/g" node-template.patch > /tmp/node.patch
+pe "cat /tmp/node.patch"
+pei "kubectl patch deployment n2 --patch-file=/tmp/node.patch"
 pe "kubectl wait --for=jsonpath='{.status.readyReplicas}=1' deploy/n2"
 
 echo "ℹ️ Get crictl"

